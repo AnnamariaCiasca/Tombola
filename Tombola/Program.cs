@@ -72,7 +72,102 @@ namespace Tombola
             } while (continua == 's' || continua == 'S');
         }
 
+
+
         private static void VerificaVittoriaLotto(ref int[] cartella, ref int[] tabellone, ref string nome)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            int cont = 0;
+
+            int[] check = new int[cartella.Length];    //array in cui andrò a salvare i numeri "indovinati" dall'utente
+            for (int i = 0; i < cartella.Length; i++)   //scorro l'array dei numeri scelti dall'utente
+            {
+                for (int j = 0; j < tabellone.Length; j++)    //scorro l'array dei numeri generati dal pc
+                {
+                    if (cartella[i] == tabellone[j])         //se trovo una corrispondenza incremento contatore
+                    {
+                        cont++;
+                        check[i] = cartella[i];   //salvo il numero indovinato nell'array check
+
+                    }
+                }
+            }
+
+
+            if (cont == 2)    //ho deciso di usare una cascata di else if, avrei potuto usare anche switch mettendogli in ingresso il contatore cont
+            {
+                Console.WriteLine($"\nComplimenti {nome}, hai fatto AMBO!");
+                Console.WriteLine("\nI numeri vincenti sono:");
+                for (int i = 0; i < check.Length; i++)
+                {
+                    if (check[i] != 0)
+                    {
+                        Console.Write($"{check[i]}\t");
+                    }
+                }
+            }
+            else if (cont == 3)
+            {
+                Console.WriteLine($"\nComplimenti {nome}, hai fatto TERNO!");
+                Console.WriteLine("\nI numeri vincenti sono:");
+                for (int i = 0; i < check.Length; i++)
+                {
+                    if (check[i] != 0)
+                    {
+                        Console.Write($"{check[i]}\t");
+                    }
+                }
+            }
+            else if (cont == 4)
+            {
+                Console.WriteLine($"\nComplimenti {nome}, hai fatto QUATERNA!");
+                Console.WriteLine("\nI numeri vincenti sono:");
+                for (int i = 0; i < check.Length; i++)
+                {
+                    if (check[i] != 0)
+                    {
+                        Console.Write($"{check[i]}\t");
+                    }
+                }
+            }
+            else if (cont == 5)
+            {
+                Console.WriteLine($"\nComplimenti {nome}, hai fatto CINQUINA!");
+                Console.WriteLine("\nI numeri vincenti sono:");
+                for (int i = 0; i < check.Length; i++)
+                {
+                    if (check[i] != 0)
+                    {
+                        Console.Write($"{check[i]}\t");
+                    }
+                }
+            }
+
+            else if (cont < 2)
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine($"\nMi dispiace {nome}, hai perso!\nHai indovinato solo {cont} numeri:");
+
+
+                for (int i = 0; i < check.Length; i++)
+                {
+                    if (check[i] != 0)
+                    {
+                        Console.Write($"{check[i]}\t");
+                    }
+                }
+
+            }
+            else if (cont == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine($"\nMi dispiace {nome}, hai perso!\nNon hai indovinato nessun numero.");
+
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        private static void VerificaVittoriaTombola(ref int[] cartella, ref int[] tabellone, ref string nome)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             int cont = 0;
@@ -127,7 +222,7 @@ namespace Tombola
                     }
                 }
             }
-            else if (cont == 5)
+            else if (cont >= 5 && cont <= 14)
             {
                 Console.WriteLine($"\nComplimenti {nome}, hai fatto CINQUINA!");
                 Console.WriteLine("\nI numeri vincenti sono:");
@@ -139,7 +234,19 @@ namespace Tombola
                     }
                 }
             }
-          
+            else if (cont == 15)
+            {
+
+                Console.WriteLine($"\nComplimenti {nome}, hai fatto TOMBOLA!");
+                Console.WriteLine("\nI numeri vincenti sono:");
+                for (int i = 0; i < check.Length; i++)
+                {
+                    if (check[i] != 0)
+                    {
+                        Console.Write($"{check[i]}\t");
+                    }
+                }
+            }
             else if (cont < 2)
             {
                 Console.ForegroundColor = ConsoleColor.Gray;
@@ -155,136 +262,12 @@ namespace Tombola
                 }
 
             }
-            Console.ForegroundColor = ConsoleColor.White;
-        }
 
-        private static int ScegliGioco()
-        {
-            int n;
-           
-            Console.WriteLine("\nScegli a quale gioco giocare:\n" +
-                "\n1) Lotto ---> Sceglierai 5 numeri" +
-                "\n2) Tombola ---> Sceglierai 15 numeri");
-         
-            while (!int.TryParse(Console.ReadLine(), out n) || n < 1 || n >2)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Puoi inserire solo inserire 1 o 2. Riprova:");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-           
-            Console.ForegroundColor = ConsoleColor.Blue;
-            switch (n)
-            {  
-                case 1: n = 5;
-                   
-                    Console.WriteLine("\nHai scelto di giocare al LOTTO!");
-                    break;
-
-                case 2: n = 15;
-                    Console.WriteLine("\nHai scelto di giocare a TOMBOLA!");
-                    break;
-            }
-            Console.ForegroundColor = ConsoleColor.White;
-            return n;
-        }
-    
-    
-
-            private static void VerificaVittoriaTombola(ref int[] cartella, ref int[] tabellone, ref string nome)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            int cont = 0;
-
-            int[] check = new int[cartella.Length];    //array in cui andrò a salvare i numeri "indovinati" dall'utente
-            for (int i = 0; i < cartella.Length; i++)   //scorro l'array dei numeri scelti dall'utente
-            {
-                for (int j = 0; j < tabellone.Length; j++)    //scorro l'array dei numeri generati dal pc
-                {
-                    if (cartella[i] == tabellone[j])         //se trovo una corrispondenza incremento contatore
-                    {
-                        cont++;
-                        check[i] = cartella[i];   //salvo il numero indovinato nell'array check
-
-                    }
-                }
-            }
-
-            if(cont == 2)    //ho deciso di usare una cascata di else if, avrei potuto usare anche switch mettendogli in ingresso il contatore cont
-            {
-                Console.WriteLine($"\nComplimenti {nome}, hai fatto AMBO!");
-                Console.WriteLine("\nI numeri vincenti sono:");
-                for (int i = 0; i < check.Length; i++)
-                {
-                    if (check[i] != 0)
-                    {
-                        Console.Write($"{check[i]}\t");
-                    }
-                }
-            }
-            else if(cont == 3)
-            {
-                Console.WriteLine($"\nComplimenti {nome}, hai fatto TERNO!");
-                Console.WriteLine("\nI numeri vincenti sono:");
-                for (int i = 0; i < check.Length; i++)
-                {
-                    if (check[i] != 0)
-                    {
-                        Console.Write($"{check[i]}\t");
-                    }
-                }
-            }
-            else if (cont == 4)
-            {
-                Console.WriteLine($"\nComplimenti {nome}, hai fatto QUATERNA!");
-                Console.WriteLine("\nI numeri vincenti sono:");
-                for (int i = 0; i < check.Length; i++)
-                {
-                    if (check[i] != 0)
-                    {
-                        Console.Write($"{check[i]}\t");
-                    }
-                }
-            }
-            else if (cont>=5 && cont<=14)
-            {
-                Console.WriteLine($"\nComplimenti {nome}, hai fatto CINQUINA!");
-                Console.WriteLine("\nI numeri vincenti sono:");
-                for (int i = 0; i < check.Length; i++)
-                {
-                    if (check[i] != 0)
-                    {
-                        Console.Write($"{check[i]}\t");
-                    }
-                }
-            }
-            else if (cont == 15)
-            {
-                
-                Console.WriteLine($"\nComplimenti {nome}, hai fatto TOMBOLA!");
-                Console.WriteLine("\nI numeri vincenti sono:");
-                for (int i = 0; i < check.Length; i++)
-                {
-                    if (check[i] != 0)
-                    {
-                        Console.Write($"{check[i]}\t");
-                    }
-                }
-            }
-            else if(cont <2)
+            else if (cont == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"\nMi dispiace {nome}, hai perso!\nHai indovinato solo {cont} numeri:");
-                
+                Console.WriteLine($"\nMi dispiace {nome}, hai perso!\nNon hai indovinato nessun numero.");
 
-                for (int i = 0; i < check.Length; i++)
-                {
-                    if (check[i] != 0)
-                    {
-                        Console.Write($"{check[i]}\t");
-                    }
-                }
-                
             }
             Console.ForegroundColor = ConsoleColor.White;
 
@@ -293,15 +276,15 @@ namespace Tombola
         private static int[] Estrazione(ref int diff)
         {
             StreamWriter sw = new StreamWriter(@"numeriEstratti.txt");  //uso questo oggetto per provare a salvare la i numeri estratti in un file
-          
+
             int[] estratti = new int[diff];   //creo l'array dei numeri estratti che avrà dimensione 'diff', ovvero varia in base al livello di difficoltà scelto dall'utente
-            
+
             Random random = new Random();
 
             for (int i = 0; i < diff; i++)
             {
                 int tab = random.Next(1, 91);  //generazione del tabellone
-             
+
                 int found = -1; //flag utilizzato per controllare che il numero scelto dall'utente non sia stato già inserito
                 found = Array.IndexOf(estratti, tab);   //assegno a found il valore ottenuto grazie alla funzione IndexOf
                 if (found > -1)   //se IndexOf restituisce -1, allora l'elemento non è presente già nell'array. Quindi se found è maggiore di -1, l'elemento inserito è già nell'array
@@ -311,16 +294,12 @@ namespace Tombola
                 else
                 {
                     estratti[i] = tab;
-                    sw.Write(tab);
+                    sw.Write($" {estratti[i]} ");
                 }
-             
-                
 
             }
             sw.Close();
             return estratti;
-            
-
         }
 
         private static int SelezionaDiff()   //utilizzo uno switch per far scegliere all'utente la difficoltà
@@ -329,20 +308,20 @@ namespace Tombola
             int difficoltà = 0;
 
             Console.WriteLine("\nScegli il livello di difficolta:");
-                 Console.ForegroundColor = ConsoleColor.Green;
-                 Console.WriteLine("\n1) Facile");
-                 Console.ForegroundColor = ConsoleColor.Yellow;
-                 Console.WriteLine("\n2) Medio");
-                 Console.ForegroundColor = ConsoleColor.Red;
-                 Console.WriteLine("\n3) Difficile");
-                 Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n1) Facile");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n2) Medio");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n3) Difficile");
+            Console.ForegroundColor = ConsoleColor.White;
 
 
             int num;
             while (!int.TryParse(Console.ReadLine(), out num) || num < 1 || num > 3)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Puoi inserire solo inserire 1 2 o 3! Riprova:");
+                Console.WriteLine("Puoi inserire solo inserire 1, 2 o 3! Riprova:");
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
@@ -371,7 +350,8 @@ namespace Tombola
 
         private static int[] ScegliNumeri(ref int[] cartella, ref int n)
         {
-            StreamWriter sw = new StreamWriter(@"cartella.txt");  //uso questo oggetto per provare a salvare la "cartella" in un file
+     
+            StreamWriter sw = new StreamWriter(@"numeriGiocati.txt");  //uso questo oggetto per provare a salvare la "cartella" in un file
 
 
             Console.WriteLine($"\nScegli {n} numeri diversi fra loro:\n");
@@ -402,17 +382,52 @@ namespace Tombola
                 }
                 else
                 {
-                    
+
                     cartella[i] = numScelto;
-                    sw.Write(cartella[i]);
-
-
+                    sw.Write($" {cartella[i]} ");
+                  
                 }
-               
             }
             sw.Close();
             return cartella;
 
+        }
+
+        private static int ScegliGioco()
+        {
+            int n;
+
+            Console.WriteLine("\nScegli a quale gioco giocare:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n1) Lotto ---> Sceglierai 5 numeri");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n2) Tombola ---> Sceglierai 15 numeri");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            while (!int.TryParse(Console.ReadLine(), out n) || n < 1 || n > 2)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Puoi inserire solo inserire 1 o 2. Riprova:");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+
+            switch (n)
+            {
+                case 1:
+                    n = 5;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\nHai scelto di giocare al LOTTO!");
+                    break;
+
+                case 2:
+                    n = 15;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("\nHai scelto di giocare a TOMBOLA!");
+                    break;
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            return n;
         }
     }
 }
