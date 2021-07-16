@@ -31,13 +31,17 @@ namespace Tombola
                 Array.Sort(cartella);  //utilizzo questa funzione per stampare a video i numeri scelti in ordine crescente
 
                 Console.WriteLine($"\nOk {nome}, hai scelto i seguenti numeri: ");
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------------");
-
+                Console.ForegroundColor = ConsoleColor.White;
                 for (int i = 0; i < cartella.Length; i++)
                 {
                     Console.Write($"{cartella[i]} \t");
                 }
+
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.White;
 
                 int diff = SelezionaDiff();  //metodo per la selezione della difficoltà
 
@@ -45,20 +49,24 @@ namespace Tombola
                 Array.Sort(tabellone);   //ordino i valori estratti in maniera crescente
 
                 Console.WriteLine("\nI numeri estratti sono:");
-                Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.White;
 
                 for (int i = 0; i < tabellone.Length; i++)
                 {
                     Console.Write($"{tabellone[i]}\t");
                 }
-                Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------------");
+                Console.ForegroundColor = ConsoleColor.White;
                 if (n == 15)
                 {
                     VerificaVittoriaTombola(ref cartella, ref tabellone, ref nome);  //metodo per la verifica della vittoria
                 }
 
-                if (n == 5)
+                else if(n == 5)
                 {
                     VerificaVittoriaLotto(ref cartella, ref tabellone, ref nome);  //metodo per la verifica della vittoria
                 }
@@ -72,7 +80,8 @@ namespace Tombola
             } while (continua == 's' || continua == 'S');
         }
 
-
+       
+        //Metodo per verificare la vittoria nel gioco del lotto
 
         private static void VerificaVittoriaLotto(ref int[] cartella, ref int[] tabellone, ref string nome)
         {
@@ -167,6 +176,7 @@ namespace Tombola
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        //Metodo per verificare la vittoria del gioco della tombola
         private static void VerificaVittoriaTombola(ref int[] cartella, ref int[] tabellone, ref string nome)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -273,6 +283,7 @@ namespace Tombola
 
         }
 
+        //Metodo con cui il PC effettua l'estrazione
         private static int[] Estrazione(ref int diff)
         {
             StreamWriter sw = new StreamWriter(@"numeriEstratti.txt");  //uso questo oggetto per provare a salvare la i numeri estratti in un file
@@ -302,6 +313,7 @@ namespace Tombola
             return estratti;
         }
 
+        //Metodo per selezionare la difficoltà
         private static int SelezionaDiff()   //utilizzo uno switch per far scegliere all'utente la difficoltà
         {
 
@@ -347,7 +359,7 @@ namespace Tombola
         }
 
 
-
+        //Metodo che permette all'utente di scegliere i numeri
         private static int[] ScegliNumeri(ref int[] cartella, ref int n)
         {
      
@@ -393,6 +405,7 @@ namespace Tombola
 
         }
 
+        //Metodo che permette di scegliere a quale gioco giocare
         private static int ScegliGioco()
         {
             int n;
